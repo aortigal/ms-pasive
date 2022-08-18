@@ -3,7 +3,6 @@ package com.bank.mspasive.services.impl;
 import com.bank.mspasive.models.documents.Parameter;
 import com.bank.mspasive.models.utils.ResponseParameter;
 import com.bank.mspasive.services.ParameterService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -15,8 +14,11 @@ import java.util.stream.Collectors;
 @Service
 public class ParameterImpl implements ParameterService {
 
-    @Autowired
-    WebClient webClient;
+    private final WebClient webClient;
+
+    public ParameterImpl(WebClient.Builder webClientBuilder){
+        this.webClient = webClientBuilder.baseUrl("http://localhost:8087").build();
+    }
 
     @Override
     public Mono<ResponseParameter> findByCode(Integer code)
