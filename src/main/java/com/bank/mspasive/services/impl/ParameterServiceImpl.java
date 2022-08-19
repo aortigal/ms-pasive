@@ -12,11 +12,11 @@ import java.util.stream.Collectors;
 
 
 @Service
-public class ParameterImpl implements ParameterService {
+public class ParameterServiceImpl implements ParameterService {
 
     private final WebClient webClient;
 
-    public ParameterImpl(WebClient.Builder webClientBuilder){
+    public ParameterServiceImpl(WebClient.Builder webClientBuilder){
         this.webClient = webClientBuilder.baseUrl("http://localhost:8087").build();
     }
 
