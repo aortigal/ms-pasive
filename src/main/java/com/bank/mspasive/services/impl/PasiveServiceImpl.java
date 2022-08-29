@@ -145,7 +145,7 @@ public class PasiveServiceImpl implements PasiveService {
                                                     LocalDateTime localDateTime = pasive.getSpecificDay().toInstant()
                                                             .atZone(ZoneId.systemDefault())
                                                             .toLocalDate().atStartOfDay();
-                                                    parameter.setArgument(localDateTime.getDayOfAmounth()+"");
+                                                    parameter.setArgument(localDateTime.getDayOfMonth()+"");
                                                 }
                                             });
 
