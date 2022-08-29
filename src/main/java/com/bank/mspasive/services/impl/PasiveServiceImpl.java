@@ -159,7 +159,7 @@ public class PasiveServiceImpl implements PasiveService {
                                     });
                         }
                 )
-                .switchIfEmpty(Mono.just(new ResponseHandler("Empty", HttpStatus.NO_CONTENT, null)))
+                //.switchIfEmpty(Mono.just(new ResponseHandler("Empty", HttpStatus.NO_CONTENT, null)))
                 .doFinally(fin -> log.info("[END] Find Type Pasive"));
 
     }
