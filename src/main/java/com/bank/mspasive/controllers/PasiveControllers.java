@@ -2,7 +2,7 @@ package com.bank.mspasive.controllers;
 
 import com.bank.mspasive.handler.ResponseHandler;
 import com.bank.mspasive.models.documents.Pasive;
-import com.bank.mspasive.models.utils.Mont;
+import com.bank.mspasive.models.utils.Amount;
 import com.bank.mspasive.services.PasiveService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +26,9 @@ public class PasiveControllers {
         return pasiveService.create(p);
     }
 
-    @PostMapping("/mont/{id}")
-    public Mono<ResponseHandler> setMontData(@PathVariable String id, @RequestBody Mont m) {
-        return pasiveService.setMontData(id, m);
+    @PostMapping("/amount/{id}")
+    public Mono<ResponseHandler> setAmountData(@PathVariable String id, @RequestBody Amount m) {
+        return pasiveService.setAmountData(id, m);
     }
 
     @GetMapping
@@ -41,9 +41,9 @@ public class PasiveControllers {
         return pasiveService.find(id);
     }
 
-    @GetMapping("/mont/{id}")
-    public Mono<ResponseHandler> getMontData(@PathVariable String id) {
-        return getMontData(id);
+    @GetMapping("/amount/{id}")
+    public Mono<ResponseHandler> getAmountData(@PathVariable String id) {
+        return getAmountData(id);
     }
 
     @PutMapping("/{id}")

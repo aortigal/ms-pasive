@@ -4,7 +4,7 @@ import com.bank.mspasive.handler.ResponseHandler;
 import com.bank.mspasive.models.dao.PasiveDao;
 import com.bank.mspasive.models.documents.Parameter;
 import com.bank.mspasive.models.documents.Pasive;
-import com.bank.mspasive.models.utils.Mont;
+import com.bank.mspasive.models.utils.Amount;
 import com.bank.mspasive.services.ParameterService;
 import com.bank.mspasive.services.PasiveService;
 import org.slf4j.Logger;
@@ -39,18 +39,18 @@ public class PasiveServiceImpl implements PasiveService {
     }
 
     @Override
-    public Mono<ResponseHandler> setMontData(String id,Mont m) {
-        log.info("[INI] setMont Pasive");
+    public Mono<ResponseHandler> setAmountData(String id,Amount m) {
+        log.info("[INI] setAmount Pasive");
         return dao.findById(id)
                 .doOnNext(pasive -> log.info(pasive.toString()))
                 .flatMap(p -> {
-                    p.setMont(p.getMont()-m.getMont());
+                    p.setAmount(p.getAmount()-m.getAmount());
                     return dao.save(p)
                             .map(pasive -> new ResponseHandler("Done", HttpStatus.OK, null));
                 })
                 .onErrorResume(error -> Mono.just(new ResponseHandler(error.getMessage(), HttpStatus.BAD_REQUEST, null)))
                 .switchIfEmpty(Mono.just(new ResponseHandler("Empty", HttpStatus.NO_CONTENT, null)))
-                .doFinally(fin -> log.info("[END] setMont Pasive"));
+                .doFinally(fin -> log.info("[END] setAmount Pasive"));
     }
 
     @Override
@@ -77,16 +77,16 @@ public class PasiveServiceImpl implements PasiveService {
     }
 
     @Override
-    public Mono<ResponseHandler> getMontData(String id) {
-        log.info("[INI] getMontData Pasive");
+    public Mono<ResponseHandler> getAmountData(String id) {
+        log.info("[INI] getAmountData Pasive");
         return dao.findById(id)
                 .doOnNext(pasive -> log.info(pasive.toString()))
                 .map(pasive -> {
-                    Mont mont = new Mont();
-                    mont.setMont(pasive.getMont());
-                    mont.setIdPasive(id);
+                    Amount amount = new Amount();
+                    amount.setAmount(pasive.getAmount());
+                    amount.setIdPasive(id);
 
-                    return new ResponseHandler("Done", HttpStatus.OK, mont);
+                    return new ResponseHandler("Done", HttpStatus.OK, amount);
                 })
                 .onErrorResume(error -> Mono.just(new ResponseHandler(error.getMessage(), HttpStatus.BAD_REQUEST, null)))
                 .switchIfEmpty(Mono.just(new ResponseHandler("Empty", HttpStatus.NO_CONTENT, null)))
@@ -145,7 +145,7 @@ public class PasiveServiceImpl implements PasiveService {
                                                     LocalDateTime localDateTime = pasive.getSpecificDay().toInstant()
                                                             .atZone(ZoneId.systemDefault())
                                                             .toLocalDate().atStartOfDay();
-                                                    parameter.setArgument(localDateTime.getDayOfMonth()+"");
+                                                    parameter.setArgument(localDateTime.getDayOfAmounth()+"");
                                                 }
                                             });
 
