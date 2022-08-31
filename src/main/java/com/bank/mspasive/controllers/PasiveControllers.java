@@ -43,7 +43,7 @@ public class PasiveControllers {
 
     @GetMapping("/amount/{id}")
     public Mono<ResponseHandler> getAmountData(@PathVariable String id) {
-        return getAmountData(id);
+        return pasiveService.getAmountData(id);
     }
 
     @PutMapping("/{id}")
